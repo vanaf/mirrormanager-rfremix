@@ -6,7 +6,7 @@
 <title>User Registeration</title>
 </head>
 <body>
-<form action="/doRegister" method="post">
+<form action="${tg.url('/doRegister')}" method="post">
 
 <fieldset >
 <legend>Register New User</legend>
