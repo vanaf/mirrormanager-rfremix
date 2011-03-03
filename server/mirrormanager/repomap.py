@@ -391,37 +391,37 @@ def repo_prefix(path, category, ver):
                 prefix = None
             # nonfree-fedora
             elif isDebug:
-                prefix = u'nonfree-fedora-debug-%s' % version
+                prefix = u'free-fedora-debug-%s' % version
             elif isSource:
-                prefix = u'nonfree-fedora-source-%s' % version
+                prefix = u'free-fedora-source-%s' % version
             else:
-                prefix=u'nonfree-fedora-%s' % version
+                prefix=u'free-fedora-%s' % version
 
         elif isUpdatesReleased:
             # updates-released-
             if isDebug:
-                prefix = u'nonfree-fedora-updates-released-debug-%s' % version
+                prefix = u'free-fedora-updates-released-debug-%s' % version
             elif isSource:
-                prefix = u'nonfree-fedora-updates-released-source-%s' % version
+                prefix = u'free-fedora-updates-released-source-%s' % version
             else:
-                prefix = u'nonfree-fedora-updates-released-%s' % version
+                prefix = u'free-fedora-updates-released-%s' % version
 
         elif isUpdatesTesting:
             # updates-testing-
             if isDebug:
-                prefix = u'nonfree-fedora-updates-testing-debug-%s' % version
+                prefix = u'free-fedora-updates-testing-debug-%s' % version
             elif isSource:
-                prefix = u'nonfree-fedora-updates-testing-source-%s' % version
+                prefix = u'free-fedora-updates-testing-source-%s' % version
             else:
-                prefix = u'nonfree-fedora-updates-testing-%s' % version
+                prefix = u'free-fedora-updates-testing-%s' % version
         elif isRawhide:
             # rawhide
             if isDebug:
-                prefix = u'nonfree-fedora-rawhide-debug'
+                prefix = u'free-fedora-rawhide-debug'
             elif isSource:
-                prefix = u'nonfree-fedora-rawhide-source'
+                prefix = u'free-fedora-rawhide-source'
             else:
-                prefix = u'nonfree-fedora-rawhide'
+                prefix = u'free-fedora-rawhide'
 
 
     elif isRFRemixRepoNonfree:
