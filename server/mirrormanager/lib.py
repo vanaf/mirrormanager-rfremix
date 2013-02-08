@@ -14,7 +14,7 @@ def createErrorString(tg_errors):
     if type(tg_errors) == types.DictType:
 
         for param, inv in tg_errors.items():
-            if type(inv) == types.StringType:
+            if type(inv) == types.StringType or type(inv) == types.UnicodeType:
                 errors.append("%s: %s"%(param, inv))
             else:
                 errors.append("%s(%s): %s"%(param, inv.value, inv.msg))
