@@ -98,6 +98,11 @@ def repo_prefix(path, category, ver):
     isRFRemixLinux = (category.name == u'RFRemix Linux')
     isRFRemixBuild = (category.name == u'RFRemix Build')
 
+    isRERemixRepoFixes = (category.name == u'RERemix Repo Fixes')
+    isRERemixRepoFree = (category.name == u'RERemix Repo Free')
+    isRERemixRepoNonfree = (category.name == u'RERemix Repo Nonfree')
+    isRERemixLinux = (category.name == u'RERemix Linux')
+
     isRFRrpmfusionFree = u'rpmfusion-free' in path
     isRFRrpmfusionNonfree = u'rpmfusion-nonfree' in path
     isRFRussian = (path.count(u'russianfedora')>1)
@@ -390,7 +395,7 @@ def repo_prefix(path, category, ver):
         if isReleases:
             if not isEverything:
                 prefix = None
-            # nonfree-fedora
+            # free-fedora
             elif isDebug:
                 prefix = u'free-fedora-debug-%s' % version
             elif isSource:
@@ -463,9 +468,125 @@ def repo_prefix(path, category, ver):
             else:
                 prefix = u'nonfree-fedora-rawhide'
 
+    elif isRERemixRepoFixes:
+        if isReleases:
+            if not isEverything:
+                prefix = None
+            # fixes-reremix
+            elif isDebug:
+                prefix = u'fixes-reremix-debug-%s' % version
+            elif isSource:
+                prefix = u'fixes-reremix-source-%s' % version
+            else:
+                prefix=u'fixes-reremix-%s' % version
+
+        elif isUpdatesReleased:
+            # updates-released-
+            if isDebug:
+                prefix = u'fixes-reremix-updates-released-debug-%s' % version
+            elif isSource:
+                prefix = u'fixes-reremix-updates-released-source-%s' % version
+            else:
+                prefix = u'fixes-reremix-updates-released-%s' % version
+
+        elif isUpdatesTesting:
+            # updates-testing-
+            if isDebug:
+                prefix = u'fixes-reremix-updates-testing-debug-%s' % version
+            elif isSource:
+                prefix = u'fixes-reremix-updates-testing-source-%s' % version
+            else:
+                prefix = u'fixes-reremix-updates-testing-%s' % version
+        elif isRawhide:
+            # rawhide
+            if isDebug:
+                prefix = u'fixes-reremix-debug-rawhide'
+            elif isSource:
+                prefix = u'fixes-reremix-source-rawhide'
+            else:
+                prefix = u'fixes-reremix-rawhide'
+
+    elif isRERemixRepoFree:
+        if isReleases:
+            if not isEverything:
+                prefix = None
+            # free-reremix
+            elif isDebug:
+                prefix = u'free-reremix-debug-%s' % version
+            elif isSource:
+                prefix = u'free-reremix-source-%s' % version
+            else:
+                prefix=u'free-reremix-%s' % version
+
+        elif isUpdatesReleased:
+            # updates-released-
+            if isDebug:
+                prefix = u'free-reremix-updates-released-debug-%s' % version
+            elif isSource:
+                prefix = u'free-reremix-updates-released-source-%s' % version
+            else:
+                prefix = u'free-reremix-updates-released-%s' % version
+
+        elif isUpdatesTesting:
+            # updates-testing-
+            if isDebug:
+                prefix = u'free-reremix-updates-testing-debug-%s' % version
+            elif isSource:
+                prefix = u'free-reremix-updates-testing-source-%s' % version
+            else:
+                prefix = u'free-reremix-updates-testing-%s' % version
+        elif isRawhide:
+            # rawhide
+            if isDebug:
+                prefix = u'free-reremix-rawhide-debug'
+            elif isSource:
+                prefix = u'free-reremix-rawhide-source'
+            else:
+                prefix = u'free-reremix-rawhide'
+
+    elif isRERemixRepoNonfree:
+        if isReleases:
+            if not isEverything:
+                prefix = None
+            # nonfree-reremix
+            elif isDebug:
+                prefix = u'nonfree-reremix-debug-%s' % version
+            elif isSource:
+                prefix = u'nonfree-reremix-source-%s' % version
+            else:
+                prefix=u'nonfree-reremix-%s' % version
+                
+        elif isUpdatesReleased:
+            # updates-released-
+            if isDebug:
+                prefix = u'nonfree-reremix-updates-released-debug-%s' % version
+            elif isSource:
+                prefix = u'nonfree-reremix-updates-released-source-%s' % version
+            else:
+                prefix = u'nonfree-reremix-updates-released-%s' % version
+            
+        elif isUpdatesTesting:
+            # updates-testing-
+            if isDebug:
+                prefix = u'nonfree-reremix-updates-testing-debug-%s' % version
+            elif isSource:
+                prefix = u'nonfree-reremix-updates-testing-source-%s' % version
+            else:
+                prefix = u'nonfree-reremix-updates-testing-%s' % version
+        elif isRawhide:
+            # rawhide
+            if isDebug:
+                prefix = u'nonfree-reremix-rawhide-debug'
+            elif isSource:
+                prefix = u'nonfree-reremix-rawhide-source'
+            else:
+                prefix = u'nonfree-reremix-rawhide'
+
     elif isRFRemixLinux:
 	prefix = u'russianfedora-%s' % version
 
+    elif isRERemixLinux:
+        prefix = u'russianel-%s' % version
 
     elif isRFRemixBuild:
         if isRFRrpmfusionFree:
