@@ -92,7 +92,7 @@ def append_value_to_cache(cache, key, value):
         cache[key].append(value)
     return cache
 
-def run_rsync(rsyncpath, extra_rsync_args=None, logfile):
+def run_rsync(rsyncpath, extra_rsync_args=None, logfile=None):
     tmpfile = tempfile.SpooledTemporaryFile()
     cmd = "rsync --temp-dir=/tmp -r --exclude=.snapshot --exclude='*.~tmp~'"
     if extra_rsync_args is not None:
