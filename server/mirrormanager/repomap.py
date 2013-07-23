@@ -92,6 +92,26 @@ def repo_prefix(path, category, ver):
     isRrpmfusionNonfreeEl = (category.name == u'RPMFUSION nonfree EL')
     isRrpmfusionNonfreeFedora = (category.name == u'RPMFUSION nonfree Fedora')
 
+    isRFRemixRepoFixes = (category.name == u'RFRemix Repo Fixes')
+    isRFRemixRepoFree = (category.name == u'RFRemix Repo Free')
+    isRFRemixRepoNonfree = (category.name == u'RFRemix Repo Nonfree')
+    isRFRemixLinux = (category.name == u'RFRemix Linux')
+    isRFRemixBuild = (category.name == u'RFRemix Build')
+
+    isRERemixRepoFixes = (category.name == u'RERemix Repo Fixes')
+    isRERemixRepoFree = (category.name == u'RERemix Repo Free')
+    isRERemixRepoNonfree = (category.name == u'RERemix Repo Nonfree')
+    isRERemixLinux = (category.name == u'RERemix Linux')
+
+    isRFRrpmfusionFree = u'rpmfusion-free' in path
+    isRFRrpmfusionNonfree = u'rpmfusion-nonfree' in path
+    isRFRussian = (path.count(u'russianfedora')>1)
+    isRFUpdatesTesting = u'updates-testing/' in path
+    isRFUpdatesReleased = False
+    if not isRFUpdatesTesting:
+        isRFUpdatesReleased = u'updates' in path
+
+
     isRhel = (category.name == u'RHEL')
 
     version = u'unknown'
@@ -331,6 +351,270 @@ def repo_prefix(path, category, ver):
                 prefix = u'nonfree-fedora-rawhide-source'
             else:
                 prefix = u'nonfree-fedora-rawhide'
+
+    elif isRFRemixRepoFixes:
+        if isReleases:
+            if not isEverything:
+                prefix = None
+            # fixes-fedora
+            elif isDebug:
+                prefix = u'fixes-fedora-debug-%s' % version
+            elif isSource:
+                prefix = u'fixes-fedora-source-%s' % version
+            else:
+                prefix=u'fixes-fedora-%s' % version
+
+        elif isUpdatesReleased:
+            # updates-released-
+            if isDebug:
+                prefix = u'fixes-fedora-updates-released-debug-%s' % version
+            elif isSource:
+                prefix = u'fixes-fedora-updates-released-source-%s' % version
+            else:
+                prefix = u'fixes-fedora-updates-released-%s' % version
+
+        elif isUpdatesTesting:
+            # updates-testing-
+            if isDebug:
+                prefix = u'fixes-fedora-updates-testing-debug-%s' % version
+            elif isSource:
+                prefix = u'fixes-fedora-updates-testing-source-%s' % version
+            else:
+                prefix = u'fixes-fedora-updates-testing-%s' % version
+        elif isRawhide:
+            # rawhide
+            if isDebug:
+                prefix = u'fixes-fedora-debug-rawhide'
+            elif isSource:
+                prefix = u'fixes-fedora-source-rawhide'
+            else:
+                prefix = u'fixes-fedora-rawhide'
+
+    elif isRFRemixRepoFree:
+        if isReleases:
+            if not isEverything:
+                prefix = None
+            # free-fedora
+            elif isDebug:
+                prefix = u'free-fedora-debug-%s' % version
+            elif isSource:
+                prefix = u'free-fedora-source-%s' % version
+            else:
+                prefix=u'free-fedora-%s' % version
+
+        elif isUpdatesReleased:
+            # updates-released-
+            if isDebug:
+                prefix = u'free-fedora-updates-released-debug-%s' % version
+            elif isSource:
+                prefix = u'free-fedora-updates-released-source-%s' % version
+            else:
+                prefix = u'free-fedora-updates-released-%s' % version
+
+        elif isUpdatesTesting:
+            # updates-testing-
+            if isDebug:
+                prefix = u'free-fedora-updates-testing-debug-%s' % version
+            elif isSource:
+                prefix = u'free-fedora-updates-testing-source-%s' % version
+            else:
+                prefix = u'free-fedora-updates-testing-%s' % version
+        elif isRawhide:
+            # rawhide
+            if isDebug:
+                prefix = u'free-fedora-rawhide-debug'
+            elif isSource:
+                prefix = u'free-fedora-rawhide-source'
+            else:
+                prefix = u'free-fedora-rawhide'
+
+
+    elif isRFRemixRepoNonfree:
+        if isReleases:
+            if not isEverything:
+                prefix = None
+            # nonfree-fedora
+            elif isDebug:
+                prefix = u'nonfree-fedora-debug-%s' % version
+            elif isSource:
+                prefix = u'nonfree-fedora-source-%s' % version
+            else:
+                prefix=u'nonfree-fedora-%s' % version
+
+        elif isUpdatesReleased:
+            # updates-released-
+            if isDebug:
+                prefix = u'nonfree-fedora-updates-released-debug-%s' % version
+            elif isSource:
+                prefix = u'nonfree-fedora-updates-released-source-%s' % version
+            else:
+                prefix = u'nonfree-fedora-updates-released-%s' % version
+
+        elif isUpdatesTesting:
+            # updates-testing-
+            if isDebug:
+                prefix = u'nonfree-fedora-updates-testing-debug-%s' % version
+            elif isSource:
+                prefix = u'nonfree-fedora-updates-testing-source-%s' % version
+            else:
+                prefix = u'nonfree-fedora-updates-testing-%s' % version
+        elif isRawhide:
+            # rawhide
+            if isDebug:
+                prefix = u'nonfree-fedora-rawhide-debug'
+            elif isSource:
+                prefix = u'nonfree-fedora-rawhide-source'
+            else:
+                prefix = u'nonfree-fedora-rawhide'
+
+    elif isRERemixRepoFixes:
+        if isReleases:
+            if not isEverything:
+                prefix = None
+            # fixes-reremix
+            elif isDebug:
+                prefix = u'fixes-reremix-debug-%s' % version
+            elif isSource:
+                prefix = u'fixes-reremix-source-%s' % version
+            else:
+                prefix=u'fixes-reremix-%s' % version
+
+        elif isUpdatesReleased:
+            # updates-released-
+            if isDebug:
+                prefix = u'fixes-reremix-updates-released-debug-%s' % version
+            elif isSource:
+                prefix = u'fixes-reremix-updates-released-source-%s' % version
+            else:
+                prefix = u'fixes-reremix-updates-released-%s' % version
+
+        elif isUpdatesTesting:
+            # updates-testing-
+            if isDebug:
+                prefix = u'fixes-reremix-updates-testing-debug-%s' % version
+            elif isSource:
+                prefix = u'fixes-reremix-updates-testing-source-%s' % version
+            else:
+                prefix = u'fixes-reremix-updates-testing-%s' % version
+        elif isRawhide:
+            # rawhide
+            if isDebug:
+                prefix = u'fixes-reremix-debug-rawhide'
+            elif isSource:
+                prefix = u'fixes-reremix-source-rawhide'
+            else:
+                prefix = u'fixes-reremix-rawhide'
+
+    elif isRERemixRepoFree:
+        if isReleases:
+            if not isEverything:
+                prefix = None
+            # free-reremix
+            elif isDebug:
+                prefix = u'free-reremix-debug-%s' % version
+            elif isSource:
+                prefix = u'free-reremix-source-%s' % version
+            else:
+                prefix=u'free-reremix-%s' % version
+
+        elif isUpdatesReleased:
+            # updates-released-
+            if isDebug:
+                prefix = u'free-reremix-updates-released-debug-%s' % version
+            elif isSource:
+                prefix = u'free-reremix-updates-released-source-%s' % version
+            else:
+                prefix = u'free-reremix-updates-released-%s' % version
+
+        elif isUpdatesTesting:
+            # updates-testing-
+            if isDebug:
+                prefix = u'free-reremix-updates-testing-debug-%s' % version
+            elif isSource:
+                prefix = u'free-reremix-updates-testing-source-%s' % version
+            else:
+                prefix = u'free-reremix-updates-testing-%s' % version
+        elif isRawhide:
+            # rawhide
+            if isDebug:
+                prefix = u'free-reremix-rawhide-debug'
+            elif isSource:
+                prefix = u'free-reremix-rawhide-source'
+            else:
+                prefix = u'free-reremix-rawhide'
+
+    elif isRERemixRepoNonfree:
+        if isReleases:
+            if not isEverything:
+                prefix = None
+            # nonfree-reremix
+            elif isDebug:
+                prefix = u'nonfree-reremix-debug-%s' % version
+            elif isSource:
+                prefix = u'nonfree-reremix-source-%s' % version
+            else:
+                prefix=u'nonfree-reremix-%s' % version
+                
+        elif isUpdatesReleased:
+            # updates-released-
+            if isDebug:
+                prefix = u'nonfree-reremix-updates-released-debug-%s' % version
+            elif isSource:
+                prefix = u'nonfree-reremix-updates-released-source-%s' % version
+            else:
+                prefix = u'nonfree-reremix-updates-released-%s' % version
+            
+        elif isUpdatesTesting:
+            # updates-testing-
+            if isDebug:
+                prefix = u'nonfree-reremix-updates-testing-debug-%s' % version
+            elif isSource:
+                prefix = u'nonfree-reremix-updates-testing-source-%s' % version
+            else:
+                prefix = u'nonfree-reremix-updates-testing-%s' % version
+        elif isRawhide:
+            # rawhide
+            if isDebug:
+                prefix = u'nonfree-reremix-rawhide-debug'
+            elif isSource:
+                prefix = u'nonfree-reremix-rawhide-source'
+            else:
+                prefix = u'nonfree-reremix-rawhide'
+
+    elif isRFRemixLinux:
+	prefix = u'russianfedora-%s' % version
+
+    elif isRERemixLinux:
+        prefix = u'russianel-%s' % version
+
+    elif isRFRemixBuild:
+        if isRFRrpmfusionFree:
+            if isRFUpdatesReleased:
+                prefix = u'build-rpmfusion-free-updates-%s' % version
+            # nonfree-fedora
+            elif isRFUpdatesTesting:
+                prefix = u'build-rpmfusion-free-updates-testing-%s' % version
+            else:
+                prefix=u'build-rpmfusion-free-%s' % version
+
+        if isRFRrpmfusionNonfree:
+            if isRFUpdatesReleased:
+                prefix = u'build-rpmfusion-nonfree-updates-%s' % version
+            # nonfree-fedora
+            elif isRFUpdatesTesting:
+                prefix = u'build-rpmfusion-nonfree-updates-testing-%s' % version
+            else:
+                prefix=u'build-rpmfusion-nonfree-%s' % version
+
+        if isRFRussian:
+            if isRFUpdatesReleased:
+                prefix = u'build-russianfedora-updates-%s' % version
+            # nonfree-fedora
+            elif isRFUpdatesTesting:
+                prefix = u'build-russianfedora-updates-testing-%s' % version
+            else:
+                prefix=u'build-russianfedora-%s' % version
+
 
     elif isRhel:
         isBeta = u'beta' in path

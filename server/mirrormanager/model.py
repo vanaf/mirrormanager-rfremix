@@ -235,7 +235,7 @@ class Host(SQLObject):
     internet2_clients = BoolCol(default=False)
     asn = IntCol(default=None)
     asn_clients = BoolCol(default=True)
-    max_connections = IntCol(default=1, notNone=True, unsigned=True)
+    max_connections = IntCol(default=1, notNone=True, unsigned=False)
     countries_allowed = MultipleJoin('HostCountryAllowed')
     netblocks = MultipleJoin('HostNetblock', orderBy='netblock')
     acl_ips = MultipleJoin('HostAclIp', orderBy='ip')
@@ -288,7 +288,10 @@ class Host(SQLObject):
 
         # handle the optional arguments
         if config['host'].has_key('user_active'):
-            self.user_active = config['host']['user_active']
+            if config['host']['user_active'] in ['true', '1', 't', 'y', 'yes']:
+                self.user_active = True
+            else:
+                self.user_active = False
 
         # fill in the host category data (HostCategory and HostCategoryURL)
         # the category names in the config have been lowercased

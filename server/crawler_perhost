@@ -456,7 +456,7 @@ def try_percategory(trydirs, url, host_category_dirs, hc, host, categoryPrefixLe
     if not url.endswith('/'):
         url += '/'
 
-    result, listing = run_rsync(url, '--no-motd')
+    result, listing = run_rsync(url, '--no-motd', logfile)
     if result > 0:
         print >>logfile, 'rsync returned exit code %d' % result
         logfile.flush()
@@ -646,11 +646,11 @@ def sighup_handler(signum, frame):
 
 def select_host_categories_to_scan(options):
     result = []
+    host = Host.get(options.hostid)
     if len(options.categories):
         for c in options.categories:
             try:
                 category = Category.byName(c)
-                host = Host.get(options.hostid)
                 hc = HostCategory.selectBy(host=host, category=category)[0]
                 result.append(hc)
             except SQLObjectNotFound:

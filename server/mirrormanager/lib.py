@@ -14,7 +14,7 @@ def createErrorString(tg_errors):
     if type(tg_errors) == types.DictType:
 
         for param, inv in tg_errors.items():
-            if type(inv) == types.StringType:
+            if type(inv) == types.StringType or type(inv) == types.UnicodeType:
                 errors.append("%s: %s"%(param, inv))
             else:
                 errors.append("%s(%s): %s"%(param, inv.value, inv.msg))
@@ -92,7 +92,7 @@ def append_value_to_cache(cache, key, value):
         cache[key].append(value)
     return cache
 
-def run_rsync(rsyncpath, extra_rsync_args=None):
+def run_rsync(rsyncpath, extra_rsync_args=None, logfile=None):
     tmpfile = tempfile.SpooledTemporaryFile()
     cmd = "rsync --temp-dir=/tmp -r --exclude=.snapshot --exclude='*.~tmp~'"
     if extra_rsync_args is not None:
@@ -100,8 +100,12 @@ def run_rsync(rsyncpath, extra_rsync_args=None):
     cmd += ' ' + rsyncpath
     try:
         devnull = open('/dev/null', 'rw')
-        sys.stderr.write('invoking %s\n' % cmd)
-        sys.stderr.flush()
+        if logfile is not None:
+          print >>logfile, 'invoking %s\n' % cmd
+          logfile.flush()
+        else:
+          sys.stderr.write('invoking %s\n' % cmd)
+          sys.stderr.flush()
         p = subprocess.Popen(cmd, shell=True, stdin=devnull,
                              stdout=tmpfile, stderr=devnull, close_fds=True, bufsize=-1)
         p.wait()
@@ -109,8 +113,12 @@ def run_rsync(rsyncpath, extra_rsync_args=None):
     except Exception, e:
         msg = "Exception invoking rsync:\n"
         msg += traceback.format_exc(e)
-        sys.stderr.write(msg+'\n')
-        sys.stderr.flush()
+        if logfile is not None:
+          print >>logfile, msg+'\n'
+          logfile.flush()
+        else:
+          sys.stderr.write(msg+'\n')
+          sys.stderr.flush()
         result = p.returncode
     tmpfile.flush()
     tmpfile.seek(0)
