@@ -456,7 +456,7 @@ def try_percategory(trydirs, url, host_category_dirs, hc, host, categoryPrefixLe
     if not url.endswith('/'):
         url += '/'
 
-    result, listing = run_rsync(url, '--no-motd')
+    result, listing = run_rsync(url, '--no-motd', logfile)
     if result > 0:
         print >>logfile, 'rsync returned exit code %d' % result
         logfile.flush()
