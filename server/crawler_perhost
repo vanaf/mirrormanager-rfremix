@@ -485,7 +485,7 @@ def try_percategory(trydirs, url, host_category_dirs, hc, host, categoryPrefixLe
         url += '/'
 
     rsync_start_time = datetime.utcnow()
-    result, listing = run_rsync(url, '--no-motd')
+    result, listing = run_rsync(url, '--no-motd', logger)
     rsync_stop_time = datetime.utcnow()
     msg = "rsync time: %s" % str(rsync_stop_time - rsync_start_time)
     logger.info(msg)

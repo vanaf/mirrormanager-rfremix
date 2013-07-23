@@ -48,6 +48,7 @@ The MirrorManager map generator creates a world map PNG noting public mirrors.
 
 %install
 rm -rf $RPM_BUILD_ROOT
+make prep
 make install DESTDIR=$RPM_BUILD_ROOT CONFFILE="%{_sysconfdir}/%{name}/prod.cfg" PROGRAMDIR="%{_datadir}/%{name}/server" SBINDIR="%{_sbindir}"
 
 
